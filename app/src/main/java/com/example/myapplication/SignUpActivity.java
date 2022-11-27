@@ -16,6 +16,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -23,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText et_email, et_password, et_username;
     private FirebaseAuth mAuth;
     private Button login, signUp;
+    static FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,11 +43,17 @@ public class SignUpActivity extends AppCompatActivity {
         et_password = findViewById(R.id.editTextPassword1);
         et_email = findViewById(R.id.editTextEmail1);
         et_username = findViewById(R.id.editTextUserName);
+
+        db = FirebaseFirestore.getInstance();
     }
 
     public void onClick_btn(View v)
     {
-        if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) return;
+        if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()){
+            Toast.makeText(this, "lol", Toast.LENGTH_LONG).show();
+            return;}
+
+
         if (v.getId()==R.id.buttonSignUp) {
 
             //Create a new signIn method which takes in an email address and password,
@@ -56,6 +68,21 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Create User With Email : success\nPlease login",
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
+
+//                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                if(mAuth.getCurrentUser().getUid() != null) {
+                                    String uid = mAuth.getCurrentUser().getUid();
+                                    CollectionReference profiles = db.collection("profiles");
+
+                                    Map<String,Object> profile = new HashMap<>();
+
+                                    profile.put("UID", uid);
+                                    profile.put("username", et_username.getText().toString());
+
+                                    profiles.document(uid).set(profile);
+                                }
+
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());

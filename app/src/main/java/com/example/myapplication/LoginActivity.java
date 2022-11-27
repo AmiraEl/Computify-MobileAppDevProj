@@ -40,9 +40,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onClick_btn(View v)
     {
-        if (et_password.getText().toString().isEmpty()) return;
+
 
         if (v.getId()==R.id.buttonLogin) {
+
+            if (et_password.getText().toString().isEmpty()) return;
 
             //Create a new signIn method which takes in an email address and password,
             // validates them, and then signs a user in with the signInWithEmailAndPassword method.
