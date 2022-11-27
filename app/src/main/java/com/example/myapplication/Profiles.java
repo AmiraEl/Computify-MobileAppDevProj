@@ -6,6 +6,7 @@ import android.os.Bundle;
 public class Profiles {
     private String username;
 
+    @Override
     public String toString(){
         return "Profiles{" +
                 ", username= " + username + '}';
