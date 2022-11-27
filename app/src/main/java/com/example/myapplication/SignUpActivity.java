@@ -42,7 +42,6 @@ public class SignUpActivity extends AppCompatActivity {
     public void onClick_btn(View v)
     {
         if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty()) return;
-
         if (v.getId()==R.id.buttonSignUp) {
 
             //Create a new signIn method which takes in an email address and password,
@@ -57,7 +56,6 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Create User With Email : success\nPlease login",
                                         Toast.LENGTH_SHORT).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
-
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
