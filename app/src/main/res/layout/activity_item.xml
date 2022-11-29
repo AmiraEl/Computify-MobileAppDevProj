@@ -25,7 +25,7 @@
             >
 
             <TextView
-                android:id="@+id/textViewName"
+                android:id="@+id/textViewNamein"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="10dp"
@@ -64,6 +64,18 @@
 
         </LinearLayout>
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
     </TableRow>
 
 </TableLayout>
