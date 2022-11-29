@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                                 assert user != null;
                                 profile.setUID(mAuth.getCurrentUser().getUid());
 //                                profile.setUsername(user.getDisplayName());
-                                Intent i = new Intent(getApplicationContext(), AddEditActivity.class);
+                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                 i.putExtra("email", user.getEmail());
                                 startActivity(i);
                             } else {
