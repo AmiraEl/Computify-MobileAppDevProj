@@ -281,7 +281,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonCANCEL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -290,7 +290,7 @@
                 android:layout_marginStart="@dimen/loginViewsMargin"/>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonSAVE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

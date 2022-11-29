@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_email, et_password;
     private FirebaseAuth mAuth;
     private Button login, signUp;
+    public static Profiles profile = new Profiles();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,7 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                assert user != null;
+                                profile.setUID(mAuth.getCurrentUser().getUid());
+//                                profile.setUsername(user.getDisplayName());
+                                Intent i = new Intent(getApplicationContext(), AddEditActivity.class);
                                 i.putExtra("email", user.getEmail());
                                 startActivity(i);
                             } else {
