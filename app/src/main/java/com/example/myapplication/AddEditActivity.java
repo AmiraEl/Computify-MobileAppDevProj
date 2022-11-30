@@ -3,8 +3,13 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -105,5 +110,70 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        super.onCreateOptionsMenu(menu);
+
+//        menu.getItem(1).setVisible(false);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        if(item.getItemId() == R.id.home){
+
+            Intent HomeIntent = new Intent(AddEditActivity.this, MainActivity.class);
+            startActivity(HomeIntent);
+
+        }
+        if(item.getItemId() == R.id.addlisting){
+            Intent AddIntent = new Intent(AddEditActivity.this, AddEditActivity.class);
+
+            startActivity(AddIntent);
+        }
+        if(item.getItemId() == R.id.viewlisting){
+
+            Intent ViewIntent = new Intent(AddEditActivity.this, MainActivity.class);
+
+            ViewIntent.putExtra("View", LoginActivity.profile.getUID());
+
+            startActivity(ViewIntent);
+
+        }
+        if(item.getItemId() == R.id.profile){
+
+            //TBA WHEN THE PROFILE ACTIVITY IS CREATED
+
+            Intent ProfileIntent = new Intent(AddEditActivity.this, MainActivity.class);
+            startActivity(ProfileIntent);
+
+        }
+        if(item.getItemId() == R.id.about){
+
+
+            //TBA WHEN ABOUT ACTIVITY IS CREATED
+            Intent HomeIntent = new Intent(AddEditActivity.this, MainActivity.class);
+            startActivity(HomeIntent);
+
+        }
+        if(item.getItemId() == R.id.logout){
+
+            FirebaseAuth.getInstance().signOut();
+
+            Intent HomeIntent = new Intent(AddEditActivity.this, LoginActivity.class);
+            startActivity(HomeIntent);
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }
