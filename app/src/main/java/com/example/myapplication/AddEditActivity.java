@@ -56,7 +56,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private EditText ssdET;
     private Button addButton;
     private Button cancelButton;
-    static FirebaseFirestore db;
+    private FirebaseFirestore db;
     private int pcID;
 
     @Override
@@ -78,7 +78,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         cancelButton = findViewById(R.id.buttonCANCEL);
         addButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
-        db = FirebaseFirestore.getInstance();
+        db = MainActivity.db;
     }
 
     @Override
@@ -94,7 +94,8 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
-
+                    Intent temp =  new Intent(AddEditActivity.this, MainActivity.class);
+                    startActivity(temp);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
