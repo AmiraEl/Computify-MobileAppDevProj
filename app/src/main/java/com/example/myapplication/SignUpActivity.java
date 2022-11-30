@@ -78,6 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                     profile.put("UID", uid);
                                     profile.put("username", et_username.getText().toString());
+                                    profile.put("email", et_email.getText().toString());
 
                                     profiles.document(uid).set(profile);
                                 }
