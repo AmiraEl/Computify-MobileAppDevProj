@@ -18,7 +18,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView itemsListView;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         data.add(map);
                     }
 //        // create the resource, from, and to variables
-                    int resource = R.layout.activity_item;
+                    int resource = R.layout.list_item;
                     String[] from = {"name", "price"};
                     int[] to = {R.id.textViewNamein, R.id.textViewPrice};
 //        String[] from = {"powersupply", "sellerID", "ssd", "price", "motherboard", "name", "pcase", "cpu", "hdd", "gpu", "ram"};
@@ -79,6 +78,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+//        Intent intent =
     }
 }

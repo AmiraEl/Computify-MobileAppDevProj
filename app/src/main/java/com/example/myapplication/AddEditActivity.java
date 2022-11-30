@@ -85,20 +85,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                     new Computers( cpuET.getText().toString(), gpuET.getText().toString(),ramET.getText().toString(), caseET.getText().toString(),
                             motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
                             priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID());
-//            Map<String, Object> computer = new HashMap<>();
-//            computer.put("pcID", 1);
-//            computer.put("UID", LoginActivity.profile.getUID());
-//            computer.put("name", nameET.getText().toString());
-//            computer.put("gpu", gpuET.getText().toString());
-//            computer.put("cpu", cpuET.getText().toString());
-//            computer.put("ram", ramET.getText().toString());
-//            computer.put("case", caseET.getText().toString());
-//            computer.put("mother", motherET.getText().toString());
-//            computer.put("psu", psuET.getText().toString());
-//            computer.put("hdd", hddET.getText().toString());
-//            computer.put("ssd", ssdET.getText().toString());
-
-//            computers.document(Integer.toString(1)).set(computer);
             computers.add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {

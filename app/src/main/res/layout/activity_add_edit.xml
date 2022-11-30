@@ -44,8 +44,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="Name" />
+                    android:text="Name"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextPcName"
@@ -73,8 +75,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="GPU" />
+                    android:text="GPU"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextgpu"
@@ -103,8 +107,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="CPU" />
+                    android:text="CPU"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextCPU"
@@ -131,8 +137,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="RAM" />
+                    android:text="RAM"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextRAM"
@@ -161,8 +169,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="Case" />
+                    android:text="Case"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextCase"
@@ -191,8 +201,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="Motherboard" />
+                    android:text="Motherboard"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextboard"
@@ -221,8 +233,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="Power Supply" />
+                    android:text="Power Supply"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextPower"
@@ -251,8 +265,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="HDD" />
+                    android:text="HDD"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextHdd"
@@ -281,8 +297,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="SSD" />
+                    android:text="SSD"
+                    android:textColor="#000000" />
 
                 <EditText
                     android:id="@+id/editTextSSD"
@@ -310,8 +328,10 @@
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:fontFamily="@font/allerta"
                     android:gravity="center"
-                    android:text="Price (AED)" />
+                    android:text="Price (AED)"
+                    android:textColor="@color/primaryTextColor" />
 
                 <EditText
                     android:id="@+id/editTextPrice"
