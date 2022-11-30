@@ -142,7 +142,16 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
 
             Intent ViewIntent = new Intent(AddEditActivity.this, MainActivity.class);
 
-            ViewIntent.putExtra("View", LoginActivity.profile.getUID());
+            ViewIntent.putExtra("number", 1);
+
+            startActivity(ViewIntent);
+
+        }
+        if(item.getItemId() == R.id.purchases){
+
+            Intent ViewIntent = new Intent(AddEditActivity.this, MainActivity.class);
+
+            ViewIntent.putExtra("number", 2);
 
             startActivity(ViewIntent);
 
