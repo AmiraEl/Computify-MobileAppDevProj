@@ -59,7 +59,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/TextViewgpu"
+                    android:id="@+id/TextViewGPU"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
