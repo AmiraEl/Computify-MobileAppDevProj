@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         super.onCreateOptionsMenu(menu);
 
-        menu.getItem(0).setVisible(false);
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
 
+        menu.getItem(0).setVisible(false);
 
 
         return true;
