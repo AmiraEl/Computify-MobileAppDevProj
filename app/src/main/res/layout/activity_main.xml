@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             card_view:srcCompat="@drawable/icons8_search"
             android:background="@color/white" />
+
     </TableRow>
 
     <TableRow
