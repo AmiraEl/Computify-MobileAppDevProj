@@ -23,8 +23,9 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:srcCompat="@android:drawable/ic_menu_search"
+            card_view:srcCompat="@drawable/icons8_search"
             android:background="@color/white" />
+
     </TableRow>
 
     <TableRow
