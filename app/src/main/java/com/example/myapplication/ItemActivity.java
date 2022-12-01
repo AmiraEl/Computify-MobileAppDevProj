@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -17,7 +19,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 
-public class ItemActivity extends AppCompatActivity {
+public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button buyButton;
+
     private TextView TextViewname;
     private TextView TextViewgpu;
     private TextView TextViewcpu;
@@ -30,6 +34,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView TextViewSeller;
     private TextView TextViewPrice;
     private FirebaseFirestore db;
+    private int num = 0;
 
 
     @Override
@@ -51,6 +56,18 @@ public class ItemActivity extends AppCompatActivity {
         TextViewSeller = findViewById(R.id.TextViewSeller);
         TextViewPrice = findViewById(R.id.TextViewPrice);
         this.db = MainActivity.db;
+
+        Intent intent = getIntent();
+        num = intent.getIntExtra("number", 0);
+        buyButton = findViewById(R.id.buttonSAVE);
+
+        if(num == 2){
+            buyButton.setText("Delete");
+        }
+
+        buyButton.setOnClickListener(this);
+
+//        if()
 
 
         db.collection("profiles").whereEqualTo("UID", item.getSellerID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -77,5 +94,16 @@ public class ItemActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.buttonSAVE) {
+            if (num == 2) {
+                db.collection("computers").document("abook").delete()
+
+
+            }
+        }
     }
 }

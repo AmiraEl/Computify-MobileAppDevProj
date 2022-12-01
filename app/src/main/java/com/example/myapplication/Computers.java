@@ -14,8 +14,9 @@ public class Computers {
     private String price;
     private String name;
     private String SellerID;
+    private String pcID;
 
-    public Computers(String cpu, String gpu, String ram, String pcase, String motherboard, String powersupply, String hdd, String ssd, String price, String name, String sellerID) {
+    public Computers(String cpu, String gpu, String ram, String pcase, String motherboard, String powersupply, String hdd, String ssd, String price, String name, String sellerID, String pcID) {
         this.cpu = cpu;
         this.gpu = gpu;
         this.ram = ram;
@@ -26,7 +27,9 @@ public class Computers {
         this.ssd = ssd;
         this.price = price;
         this.name = name;
-        SellerID = sellerID;
+        this.SellerID = sellerID;
+        this.pcID = pcID;
+
     }
 
     @Override
@@ -42,7 +45,8 @@ public class Computers {
                 ", ssd='" + ssd + '\'' +
                 ", price='" + price + '\'' +
                 ", name='" + name + '\'' +
-                ", SellerID='" + SellerID +
+                ", SellerID='" + SellerID + '\'' +
+                ", pcid='" + pcID +
                 '}';
     }
 
@@ -135,5 +139,13 @@ public class Computers {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPcID(){
+        return pcID;
+    }
+
+    public void setPcID(String pcID){
+        this.pcID = pcID;
     }
 }
