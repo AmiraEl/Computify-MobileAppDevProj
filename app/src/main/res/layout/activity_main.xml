@@ -12,7 +12,7 @@
         android:gravity="center">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/searchBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -20,10 +20,10 @@
             android:text="Name" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/SearchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            card_view:srcCompat="@android:drawable/ic_menu_search"
+            card_view:srcCompat="@drawable/icons8_search"
             android:background="@color/white" />
     </TableRow>
 
