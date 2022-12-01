@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,13 +41,15 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseFirestore db;
     private int num = 0;
 
+    Computers item = new Computers();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
         int pos = getIntent().getIntExtra("position", -1);
-        Computers item = MainActivity.ItemsList.get(pos);
+        item = MainActivity.ItemsList.get(pos);
 
         TextViewname = findViewById(R.id.textViewName);
         TextViewgpu = findViewById(R.id.TextViewGPU);
@@ -100,8 +107,70 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.buttonSAVE) {
             if (num == 2) {
-//                db.collection("computers").document("abook").delete()
 
+                AlertDialog.Builder builder = new AlertDialog.Builder(ItemActivity.this);
+
+
+                builder.setTitle("Delete"); // title bar string
+                builder.setMessage("Do you want to delete your listing?");
+
+                builder.setPositiveButton("Delete",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(), "Listing deleted", Toast.LENGTH_LONG).show();
+                                        Intent deleteintent = new Intent(ItemActivity.this, MainActivity.class);
+                                        deleteintent.putExtra("number", 0);
+                                        startActivity(deleteintent);
+
+                                    }
+                                });
+
+                            }
+                        }
+                );
+                builder.setNegativeButton("cancel", null);
+                builder.show();
+
+            }
+            else{
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ItemActivity.this);
+                builder.setTitle("Purchase"); // title bar string
+                builder.setMessage("Confirm your purchase?");
+
+                builder.setPositiveButton("Confirm",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                db.collection("purchases").add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(getApplicationContext(), "Computer has been purchased", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                                db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(), "Listing deleted", Toast.LENGTH_LONG).show();
+
+                                        Intent buyIntent = new Intent(ItemActivity.this, MainActivity.class);
+                                        buyIntent.putExtra("number", 2);
+                                        startActivity(buyIntent);
+                                    }
+                                });
+
+                            }
+                        }
+                );
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
 
             }
         }
