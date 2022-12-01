@@ -78,11 +78,12 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
             Computers item =
                     new Computers( cpuET.getText().toString(), gpuET.getText().toString(),ramET.getText().toString(), caseET.getText().toString(),
                             motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
-                            priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID());
+                            priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
             computers.add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                 @Override
                 public void onSuccess(DocumentReference documentReference) {
                     Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
+                    computers.document(documentReference.getId()).update("pcID", documentReference.getId());
                     Intent temp =  new Intent(AddEditActivity.this, MainActivity.class);
                     startActivity(temp);
                 }

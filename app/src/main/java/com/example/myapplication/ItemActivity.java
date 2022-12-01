@@ -100,7 +100,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.buttonSAVE) {
             if (num == 2) {
-                db.collection("computers").document("abook").delete()
+//                db.collection("computers").document("abook").delete()
 
 
             }

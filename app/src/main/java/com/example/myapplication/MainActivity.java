@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                        data.add((HashMap<String, Object>) document.getData());
                                 Log.d("TAG", document.getId() + " => " + document.getData());
                                 ItemsList.add(document.toObject(Computers.class));
-
                             }
                             for (Computers comp : ItemsList) {
                                 Log.d("TAG", "here");
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //                        data.add((HashMap<String, Object>) document.getData());
                                 Log.d("TAG", document.getId() + " => " + document.getData());
                                 ItemsList.add(document.toObject(Computers.class));
-
                             }
                             for (Computers comp : ItemsList) {
                                 Log.d("TAG", "here");
@@ -154,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 detail = new Intent(MainActivity.this, AddEditActivity.class);
                 detail.putExtra("position", position);
                 detail.putExtra("number", number);
-
                 startActivity(detail);
                 break;
 //            case 2: //purchases
