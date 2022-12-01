@@ -33,16 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 public class AddEditActivity extends AppCompatActivity implements View.OnClickListener {
-
-//    private TextView nameTV;
-//    private TextView gpuTV;
-//    private TextView cpuTV;
-//    private TextView ramTV;
-//    private TextView caseTV;
-//    private TextView motherTV;
-//    private TextView psuTV;
-//    private TextView hddTV;
-//    private TextView ssdTV;
     private TextView titleTV;
     private EditText nameET;
     private EditText gpuET;
@@ -58,7 +48,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private Button cancelButton;
     private FirebaseFirestore db;
     private int pcID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +155,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         if(item.getItemId() == R.id.about){
-
 
             //TBA WHEN ABOUT ACTIVITY IS CREATED
             Intent HomeIntent = new Intent(AddEditActivity.this, MainActivity.class);

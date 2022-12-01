@@ -49,12 +49,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onClick_btn(View v)
     {
-        if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()){
-            Toast.makeText(this, "lol", Toast.LENGTH_LONG).show();
-            return;}
-
 
         if (v.getId()==R.id.buttonSignUp) {
+            if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()){
+                Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_LONG).show();
+                return;}
 
             //Create a new signIn method which takes in an email address and password,
             // validates them, and then signs a user in with the signInWithEmailAndPassword method.

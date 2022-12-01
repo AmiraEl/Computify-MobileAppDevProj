@@ -148,9 +148,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent detail = new Intent(MainActivity.this, ItemActivity.class);
-        detail.putExtra("position", position);
-        startActivity(detail);
+        Intent detail;
+        switch (number){
+            case 1: //listings
+                detail = new Intent(MainActivity.this, AddEditActivity.class);
+                detail.putExtra("position", position);
+                detail.putExtra("number", number);
+
+                startActivity(detail);
+                break;
+//            case 2: //purchases
+//                detail = new Intent(MainActivity.this, ItemActivity.class);
+//                detail.putExtra("position", position);
+//                detail.putExtra("number", number);
+//                startActivity(detail);
+//                break;
+            default:
+                detail = new Intent(MainActivity.this, ItemActivity.class);
+                detail.putExtra("position", position);
+                detail.putExtra("number", number);
+                startActivity(detail);
+                break;
+        }
+
 
     }
 
