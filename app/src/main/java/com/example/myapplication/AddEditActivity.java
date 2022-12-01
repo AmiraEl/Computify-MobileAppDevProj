@@ -24,6 +24,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
@@ -48,6 +49,12 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private Button cancelButton;
     private FirebaseFirestore db;
     private int pcID;
+
+    private int num = 0;
+
+    Computers items = new Computers();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,33 +75,76 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         addButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         db = MainActivity.db;
+
+
+        Intent intent = getIntent();
+        num = intent.getIntExtra("number", 0);
+
+        if(num == 1){
+            titleTV.setText("Edit Listing");
+
+            db.collection("profiles").whereEqualTo("UID", items.getSellerID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        Profiles temp = new Profiles();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            temp = document.toObject(Profiles.class);
+                            break;
+                        }
+                        nameET.setText(items.getName());
+                        gpuET.setText(items.getGpu());
+                        cpuET.setText(items.getCpu());
+                        ramET.setText(items.getRam());
+                        caseET.setText(items.getPcase());
+                        motherET.setText(items.getMotherboard());
+                        psuET.setText(items.getPowersupply());
+                        hddET.setText(items.getHdd());
+                        ssdET.setText(items.getSsd());
+                        priceET.setText(items.getPrice());
+
+
+                    }
+                }
+            });
+        }
     }
+
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.buttonSAVE){
             //ADD/EDIT TO DATABASE
-            CollectionReference computers = db.collection("computers");
-            Computers item =
-                    new Computers( cpuET.getText().toString(), gpuET.getText().toString(),ramET.getText().toString(), caseET.getText().toString(),
-                            motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
-                            priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
-            computers.add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                @Override
-                public void onSuccess(DocumentReference documentReference) {
-                    Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
-                    computers.document(documentReference.getId()).update("pcID", documentReference.getId());
-                    Intent temp =  new Intent(AddEditActivity.this, MainActivity.class);
-                    startActivity(temp);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.w("TAG", "Error adding document", e);
-                }
-            })
-            ;
 
+            if(num==1){
+
+                CollectionReference computers = db.collection("computers");
+                Computers item =
+                        new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
+                                motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
+                                priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
+                computers.document(items.getPcID()).set(item);
+            }else {
+                CollectionReference computers = db.collection("computers");
+                Computers item =
+                        new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
+                                motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
+                                priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
+                computers.add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
+                        computers.document(documentReference.getId()).update("pcID", documentReference.getId());
+                        Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
+                        startActivity(temp);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });
+            }
         }
         else if(v.getId() == R.id.buttonCANCEL){
             //RETURNNNNNNNNNNNNNN

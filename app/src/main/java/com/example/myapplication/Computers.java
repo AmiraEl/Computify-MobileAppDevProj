@@ -35,19 +35,33 @@ public class Computers {
     @Override
     public String toString() {
         return "Computers{" +
-                "cpu='" + cpu + '\'' +
-                ", gpu='" + gpu + '\'' +
-                ", ram='" + ram + '\'' +
-                ", pcase='" + pcase + '\'' +
-                ", motherboard='" + motherboard + '\'' +
-                ", powersupply='" + powersupply + '\'' +
-                ", hdd='" + hdd + '\'' +
-                ", ssd='" + ssd + '\'' +
-                ", price='" + price + '\'' +
-                ", name='" + name + '\'' +
-                ", SellerID='" + SellerID + '\'' +
-                ", pcid='" + pcID +
+                "cpu '" + cpu + '\'' +
+                ", gpu '" + gpu + '\'' +
+                ", ram '" + ram + '\'' +
+                ", pcase '" + pcase + '\'' +
+                ", motherboard '" + motherboard + '\'' +
+                ", powersupply '" + powersupply + '\'' +
+                ", hdd '" + hdd + '\'' +
+                ", ssd '" + ssd + '\'' +
+                ", price '" + price + '\'' +
+                ", name '" + name + '\'' +
+                ", SellerID '" + SellerID + '\'' +
+                ", pcid '" + pcID +
                 '}';
+
+//        "cpu='" + cpu + '\'' +
+//                ", gpu='" + gpu + '\'' +
+//                ", ram='" + ram + '\'' +
+//                ", pcase='" + pcase + '\'' +
+//                ", motherboard='" + motherboard + '\'' +
+//                ", powersupply='" + powersupply + '\'' +
+//                ", hdd='" + hdd + '\'' +
+//                ", ssd='" + ssd + '\'' +
+//                ", price='" + price + '\'' +
+//                ", name='" + name + '\'' +
+//                ", SellerID='" + SellerID + '\'' +
+//                ", pcid='" + pcID +
+//                '}';
     }
 
     public void setCpu(String cpu) {

@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -24,19 +27,25 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
     private ListView itemsListView;
     static FirebaseFirestore db;
     public static ArrayList<Computers> ItemsList = new ArrayList<>();
     int number;
+    private ImageButton searchButton;
+    private EditText searchET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        searchET = findViewById(R.id.editTextSearch);
         itemsListView = findViewById(R.id.listViewItems);
+        searchButton = findViewById(R.id.imageButton);
         itemsListView.setOnItemClickListener(this);
+        searchButton.setOnClickListener(this);
         db = FirebaseFirestore.getInstance();
         Intent checker = getIntent();
         number = checker.getIntExtra("number", 0);
@@ -244,5 +253,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        ArrayList<Computers> templist = new ArrayList<>();
+
+        if(v.getId() == R.id.imageButton){
+            if(!searchET.getText().toString().isEmpty())
+
+            for(Computers x: ItemsList){
+                String temp = x.toString();
+                String search = searchET.getText().toString();
+                if(temp.contains(search)){
+                    templist.add(x);
+                }
+            }
+
+            ItemsList = templist;
+
+            UpdateDisplay();
+
+        }
     }
 }
