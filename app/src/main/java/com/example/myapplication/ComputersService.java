@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +21,14 @@ public class ComputersService extends Service {
 
     private ComputerApp app;
     private Timer timer;
+    private String[] array = new String[]{};
+    int count = 0;
+    @Override
+    public void onCreate() {
+        array = new String[]{"Find the computer of your dreams!", "Discounts up to 30% for a limited time only!", "Top of the line computers are waiting for you!"};
+        startTimer();
+    }
+
 
     @Nullable
     @Override
@@ -43,7 +53,6 @@ public class ComputersService extends Service {
                         .build();
 
         //-----------------------------------------------------
-
         return START_STICKY;
     }
 
@@ -56,22 +65,17 @@ public class ComputersService extends Service {
     private void startTimer() {
         TimerTask task = new TimerTask()
         {
-
             @Override
             public void run() {
-                String[] array = {"Find the computer of your dreams!", "Discounts up to 30% for a limited time only!", "Top of the line computers are waiting for you!"};
-
-                    for (int h=0;h< array.length;h++) {
-                            // display notification
-                            sendNotification(array[h]);
-                        }
+//                for (int i = 0; i< array.length;i++) {
+                    // display notification
+                    sendNotification(count);
+//                }
                     }
             };
-
-
         timer = new Timer(true);
         int delay = 0;   // 1/2 hour
-        int interval = 1000 * 20;   // 1/2 hour
+        int interval = 1000 * 5;   // 1/2 hour
         timer.schedule(task, delay, interval);
     }
 
@@ -81,7 +85,7 @@ public class ComputersService extends Service {
         }
     }
 
-    private void sendNotification(String S )
+    private void sendNotification(int i )
     {
         // create the intent for the notification
         Intent notificationIntent = new Intent(this, LoginActivity.class)
@@ -96,12 +100,12 @@ public class ComputersService extends Service {
         CharSequence  contentTitle = "Computify";
 
         CharSequence tickerText = "New computers available";
-        CharSequence contentText = S;
+        CharSequence contentText = array[count];
 
         NotificationChannel notificationChannel =
                 new NotificationChannel("Channel_ID", "My Notifications", NotificationManager.IMPORTANCE_HIGH);
 
-        NotificationManager manager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.createNotificationChannel(notificationChannel);
 
 
@@ -117,7 +121,9 @@ public class ComputersService extends Service {
                 .setChannelId("Channel_ID")
                 .build();
 
-        final int NOTIFICATION_ID = 1; //cannot be 0
+        final int NOTIFICATION_ID = count+ 1; //cannot be 0
         manager.notify(NOTIFICATION_ID, notification);
+
+        count = count + 1 % 2;
     }
 }

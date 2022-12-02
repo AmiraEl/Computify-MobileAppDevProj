@@ -26,12 +26,15 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button login, signUp;
     public static Profiles profile = new Profiles();
+    private ComputerApp app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        app = (ComputerApp) getApplication();
 
         //authentication
         mAuth = FirebaseAuth.getInstance();
