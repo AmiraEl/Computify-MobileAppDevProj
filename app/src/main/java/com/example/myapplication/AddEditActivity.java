@@ -97,8 +97,8 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         ssdET = findViewById(R.id.editTextSSD);
         addButton = findViewById(R.id.buttonSAVE);
         cancelButton = findViewById(R.id.buttonCANCEL);
-        saveButton = findViewById(R.id.buttonSAVE);
-        uploadButton = findViewById(R.id.imageButton);
+        saveButton = findViewById(R.id.buttonSelect);
+        uploadButton = findViewById(R.id.imageButtonUpload);
         addButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         db = MainActivity.db;
