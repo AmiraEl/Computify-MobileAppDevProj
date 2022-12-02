@@ -2,7 +2,12 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -174,6 +179,44 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 computers.document(items.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+
+                        Intent notificationIntent = new Intent(getApplicationContext(), ItemActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        // create the pending intent
+                        int flags = PendingIntent.FLAG_IMMUTABLE;
+                        PendingIntent pendingIntent =
+                                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,flags);//<--------
+
+                        // create the variables for the notification
+                        CharSequence  contentTitle = "Computify";
+
+                        CharSequence tickerText = "New computers available";
+                        CharSequence contentText = "Your listing has been created";
+
+                        NotificationChannel notificationChannel =
+                                new NotificationChannel("Channel_ID", "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+
+                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        manager.createNotificationChannel(notificationChannel);
+
+
+                        // create the notification and set its data
+                        Notification notification = new NotificationCompat
+                                .Builder(getApplicationContext(), "Channel_ID")
+                                .setSmallIcon(R.drawable.computer)
+                                .setTicker(tickerText)
+                                .setContentTitle(contentTitle)
+                                .setContentText(contentText)
+                                .setContentIntent(pendingIntent)
+                                .setAutoCancel(true)
+                                .setChannelId("Channel_ID")
+                                .build();
+
+                        final int NOTIFICATION_ID = 4; //cannot be 0
+                        manager.notify(NOTIFICATION_ID, notification);
+
+
                         computers.document(items.getPcID()).set(item);
                         Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
                         temp.putExtra("number", num);

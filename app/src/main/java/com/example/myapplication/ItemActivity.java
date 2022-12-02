@@ -134,6 +134,42 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                                     public void onSuccess(Void unused) {
 
 
+                                        Intent notificationIntent = new Intent(getApplicationContext(), ItemActivity.class)
+                                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                                        // create the pending intent
+                                        int flags = PendingIntent.FLAG_IMMUTABLE;
+                                        PendingIntent pendingIntent =
+                                                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,flags);//<--------
+
+                                        // create the variables for the notification
+                                        CharSequence  contentTitle = "Computify";
+
+                                        CharSequence tickerText = "New computers available";
+                                        CharSequence contentText = "Your listing has been removed";
+
+                                        NotificationChannel notificationChannel =
+                                                new NotificationChannel("Channel_ID", "My Notifications", NotificationManager.IMPORTANCE_HIGH);
+
+                                        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                                        manager.createNotificationChannel(notificationChannel);
+
+
+                                        // create the notification and set its data
+                                        Notification notification = new NotificationCompat
+                                                .Builder(getApplicationContext(), "Channel_ID")
+                                                .setSmallIcon(R.drawable.computer)
+                                                .setTicker(tickerText)
+                                                .setContentTitle(contentTitle)
+                                                .setContentText(contentText)
+                                                .setContentIntent(pendingIntent)
+                                                .setAutoCancel(true)
+                                                .setChannelId("Channel_ID")
+                                                .build();
+
+                                        final int NOTIFICATION_ID = 4; //cannot be 0
+                                        manager.notify(NOTIFICATION_ID, notification);
+
 
                                         Toast.makeText(getApplicationContext(), "Listing deleted", Toast.LENGTH_LONG).show();
                                         Intent deleteintent = new Intent(ItemActivity.this, MainActivity.class);
