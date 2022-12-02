@@ -40,8 +40,12 @@ import com.google.firebase.storage.UploadTask;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -59,27 +63,24 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private EditText ssdET;
     private Button addButton;
     private Button cancelButton;
-    private Button saveButton;
-    private ImageButton uploadButton;
+    //    private Button saveButton;
+//    private ImageButton uploadButton;
     private FirebaseFirestore db;
     private int pcID;
     private int num = 0;
     private int pos = 0;
     Computers items = new Computers();
 
-
-
-    // Uri indicates, where the image will be picked from
-    private Uri filePath;
-
-    // request code
-    private final int PICK_IMAGE_REQUEST = 22;
-
-    // instance for firebase storage and StorageReference
-    FirebaseStorage storage;
-    StorageReference storageReference;
-
-
+    //
+//    // Uri indicates, where the image will be picked from
+//    private Uri filePath;
+//
+//    // request code
+//    private final int PICK_IMAGE_REQUEST = 22;
+//
+//    // instance for firebase storage and StorageReference
+//    FirebaseStorage storage;
+//    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,8 +98,8 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         ssdET = findViewById(R.id.editTextSSD);
         addButton = findViewById(R.id.buttonSAVE);
         cancelButton = findViewById(R.id.buttonCANCEL);
-        saveButton = findViewById(R.id.buttonSelect);
-        uploadButton = findViewById(R.id.imageButtonUpload);
+//        saveButton = findViewById(R.id.buttonSelect);
+//        uploadButton = findViewById(R.id.imageButtonUpload);
         addButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         db = MainActivity.db;
@@ -132,28 +133,31 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
             });
-        }else if (num == 4){
+        } else if (num == 4) {
             titleTV.setText("Search");
             addButton.setText("Search");
         }
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SelectImage();
-            }
-        });
-
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                UploadImage();
-            }
-        });
+//    SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.UK);
+//        Date now = new Date();
+//        String filename = formatter.format(now);
+//
+//        storage = FirebaseStorage.getInstance();
+//        storageReference = storage.getReference("images/"+filename);
+//
+//        saveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SelectImage();
+//            }
+//        });
+//
+//        uploadButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                UploadImage();
+//            }
+//        });
     }
 
 
@@ -176,6 +180,25 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                         startActivity(temp);
                     }
                 });
+
+            } else if (num == 4) {
+                CollectionReference computers = db.collection("computers");
+                Computers item =
+                        new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
+                                motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
+                                priceET.getText().toString(), nameET.getText().toString(), null, null);
+                ArrayList<Computers> tempList = new ArrayList<>();
+                Log.d("TEST", "onClick: " + item.toString());
+                for (Computers x : MainActivity.ItemsList) {
+                    if (item.equals(x)) {
+                        tempList.add(item);
+                    }
+                    Log.d("TEST", "onClick: " + x.toString());
+                }
+                MainActivity.SearchList = tempList;
+                Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
+                temp.putExtra("number", num);
+                startActivity(temp);
 
             } else {
                 CollectionReference computers = db.collection("computers");
@@ -206,15 +229,10 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         super.onCreateOptionsMenu(menu);
-
 //        menu.getItem(1).setVisible(false);
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-
-
         return true;
     }
 
@@ -277,132 +295,117 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    private void SelectImage()
-    {
-
-        // Defining Implicit Intent to mobile gallery
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(
-                Intent.createChooser(
-                        intent,
-                        "Select Image from here..."),
-                PICK_IMAGE_REQUEST);
-    }
-
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data)
-    {
-
-        super.onActivityResult(requestCode,
-                resultCode,
-                data);
-
-        // checking request code and result code
-        // if request code is PICK_IMAGE_REQUEST and
-        // resultCode is RESULT_OK
-        // then set image in the image view
-        if (requestCode == PICK_IMAGE_REQUEST
-                && resultCode == RESULT_OK
-                && data != null
-                && data.getData() != null) {
-
-            // Get the Uri of data
-            filePath = data.getData();
-            try {
-
-                // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContentResolver(),
-                                filePath);
-
-            }
-
-            catch (IOException e) {
-                // Log the exception
-                e.printStackTrace();
-            }
-        }
-    }
-
-    // UploadImage method
-    private void UploadImage()
-    {
-        if (filePath != null) {
-
-            // Code for showing progressDialog while uploading
-            ProgressDialog progressDialog
-                    = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-
-            // Defining the child of storageReference
-            StorageReference ref
-                    = storageReference
-                    .child(
-                            "images/"
-                                    + UUID.randomUUID().toString());
-
-            // adding listeners on upload
-            // or failure of image
-            ref.putFile(filePath)
-                    .addOnSuccessListener(
-                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
-                                @Override
-                                public void onSuccess(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
-
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
-                                    progressDialog.dismiss();
-                                    Toast
-                                            .makeText(getApplicationContext(),
-                                                    "Image Uploaded!!",
-                                                    Toast.LENGTH_SHORT)
-                                            .show();
-                                }
-                            })
-
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e)
-                        {
-
-                            // Error, Image not uploaded
-                            progressDialog.dismiss();
-                            Toast
-                                    .makeText(getApplicationContext(),
-                                            "Failed " + e.getMessage(),
-                                            Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    })
-                    .addOnProgressListener(
-                            new OnProgressListener<UploadTask.TaskSnapshot>() {
-
-                                // Progress Listener for loading
-                                // percentage on the dialog box
-                                @Override
-                                public void onProgress(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
-                                    double progress
-                                            = (100.0
-                                            * taskSnapshot.getBytesTransferred()
-                                            / taskSnapshot.getTotalByteCount());
-                                    progressDialog.setMessage(
-                                            "Uploaded "
-                                                    + (int)progress + "%");
-                                }
-                            });
-        }
-    }
+//    private void SelectImage() {
+//
+//        // Defining Implicit Intent to mobile gallery
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(
+//                Intent.createChooser(
+//                        intent,
+//                        "Select Image from here..."),
+//                PICK_IMAGE_REQUEST);
+//    }
+//
+//    protected void onActivityResult(int requestCode,
+//                                    int resultCode,
+//                                    Intent data) {
+//        super.onActivityResult(requestCode,
+//                resultCode,
+//                data);
+//        // checking request code and result code
+//        // if request code is PICK_IMAGE_REQUEST and
+//        // resultCode is RESULT_OK
+//        // then set image in the image view
+//        if (requestCode == PICK_IMAGE_REQUEST
+//                && resultCode == RESULT_OK
+//                && data != null
+//                && data.getData() != null) {
+//
+//            // Get the Uri of data
+//            filePath = data.getData();
+//            try {
+//
+//                // Setting image on image view using Bitmap
+//                Bitmap bitmap = MediaStore
+//                        .Images
+//                        .Media
+//                        .getBitmap(
+//                                getContentResolver(),
+//                                filePath);
+//
+//            } catch (IOException e) {
+//                // Log the exception
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+//
+//    // UploadImage method
+//    private void UploadImage() {
+//        Log.d("TAG", "UploadImage: " + filePath.getLastPathSegment());
+//        if (filePath != null) {
+//
+//            // Code for showing progressDialog while uploading
+//            ProgressDialog progressDialog
+//                    = new ProgressDialog(this);
+//            progressDialog.setTitle("Uploading...");
+//            progressDialog.show();
+//
+//            // Defining the child of storageReference
+//            StorageReference ref = storageReference.child("images/" + filePath.getLastPathSegment());
+//            Log.d("TAG", "UploadImage: " + filePath.getLastPathSegment());
+//            // adding listeners on upload
+//            // or failure of image
+//            ref.putFile(filePath)
+//                    .addOnSuccessListener(
+//                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onSuccess(
+//                                        UploadTask.TaskSnapshot taskSnapshot) {
+//                                    // Image uploaded successfully
+//                                    // Dismiss dialog
+//                                    progressDialog.dismiss();
+//                                    Toast
+//                                            .makeText(getApplicationContext(),
+//                                                    "Image Uploaded!!",
+//                                                    Toast.LENGTH_SHORT)
+//                                            .show();
+//                                }
+//                            })
+//
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//
+//                            // Error, Image not uploaded
+//                            progressDialog.dismiss();
+//                            Toast
+//                                    .makeText(getApplicationContext(),
+//                                            "Failed " + filePath,
+//                                            Toast.LENGTH_SHORT)
+//                                    .show();
+//
+//                        }
+//                    })
+//                    .addOnProgressListener(
+//                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                                // Progress Listener for loading
+//                                // percentage on the dialog box
+//                                @Override
+//                                public void onProgress(
+//                                        UploadTask.TaskSnapshot taskSnapshot) {
+//                                    double progress
+//                                            = (100.0
+//                                            * taskSnapshot.getBytesTransferred()
+//                                            / taskSnapshot.getTotalByteCount());
+//                                    progressDialog.setMessage(
+//                                            "Uploaded "
+//                                                    + (int) progress + "%");
+//                                }
+//                            });
+//        }
+//    }
 }
 

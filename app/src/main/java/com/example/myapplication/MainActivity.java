@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private ListView itemsListView;
     static FirebaseFirestore db;
     public static ArrayList<Computers> ItemsList = new ArrayList<>();
+    public static ArrayList<Computers> SearchList = new ArrayList<>();
     int number;
     private ImageButton searchButton;
     private EditText searchET;
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void UpdateDisplay() {
         ArrayList<HashMap<String, String>> data = new ArrayList<>();
         ItemsList.clear();
-        Log.d("TAG", "here");
-
         switch (number) {
             case 1:  // listings
                 db.collection("computers").whereEqualTo("sellerID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -119,6 +118,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 });
                 break;
+            case 4: //Searching
+                for (Computers comp : SearchList) {
+                    Log.d("TAG", "here");
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("name", comp.getName());
+                    map.put("price", comp.getPrice());
+                    data.add(map);
+                }
+//        // create the resource, from, and to variables
+                int resource = R.layout.list_item;
+                String[] from = {"name", "price"};
+                int[] to = {R.id.textViewNamein, R.id.textViewPrice};
+                // create and set the adapter
+                SimpleAdapter adapter =
+                        new SimpleAdapter(getApplicationContext(), data, resource, from, to);
+                itemsListView.setAdapter(adapter);
+                break;
             default:
                 db.collection("computers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -136,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 map.put("price", comp.getPrice());
                                 data.add(map);
                             }
-        // create the resource, from, and to variables
+                            // create the resource, from, and to variables
                             int resource = R.layout.list_item;
                             String[] from = {"name", "price"};
                             int[] to = {R.id.textViewNamein, R.id.textViewPrice};
@@ -149,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
         }
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent detail;
@@ -173,15 +190,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        menu.getItem(0).setVisible(false);
+//        menu.getItem(0).setVisible(false);
         return true;
     }
 
     @Override
     public void onClick(View v) {
-       Intent searchPage = new Intent(MainActivity.this, AddEditActivity.class);
-       searchPage.putExtra("number", 4);
-       startActivity(searchPage);
+        Intent searchPage = new Intent(MainActivity.this, AddEditActivity.class);
+        searchPage.putExtra("number", 4);
+        startActivity(searchPage);
     }
 
     @Override

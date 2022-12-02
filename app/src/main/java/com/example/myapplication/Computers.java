@@ -33,6 +33,27 @@ public class Computers {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Computers computers = (Computers) o;
+        return (Objects.equals(cpu, computers.cpu)|| computers.cpu.isEmpty())
+                && (Objects.equals(gpu, computers.gpu)|| computers.gpu.isEmpty())
+                && (Objects.equals(ram, computers.ram)|| computers.ram.isEmpty())
+                && (Objects.equals(pcase, computers.pcase)|| computers.pcase.isEmpty())
+                && (Objects.equals(motherboard, computers.motherboard) || computers.motherboard.isEmpty())
+                && (Objects.equals(powersupply, computers.powersupply)|| computers.powersupply.isEmpty())
+                && (Objects.equals(hdd, computers.hdd)|| computers.hdd.isEmpty())
+                && (Objects.equals(ssd, computers.ssd)|| computers.ssd.isEmpty())
+                && (Objects.equals(name.toLowerCase(), computers.name.toLowerCase()) || computers.name.isEmpty());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cpu, gpu, ram, pcase, motherboard, powersupply, hdd, ssd, price, name);
+    }
+
+    @Override
     public String toString() {
         return "Computers{" +
                 "cpu '" + cpu + '\'' +
@@ -48,20 +69,6 @@ public class Computers {
                 ", SellerID '" + SellerID + '\'' +
                 ", pcid '" + pcID +
                 '}';
-
-//        "cpu='" + cpu + '\'' +
-//                ", gpu='" + gpu + '\'' +
-//                ", ram='" + ram + '\'' +
-//                ", pcase='" + pcase + '\'' +
-//                ", motherboard='" + motherboard + '\'' +
-//                ", powersupply='" + powersupply + '\'' +
-//                ", hdd='" + hdd + '\'' +
-//                ", ssd='" + ssd + '\'' +
-//                ", price='" + price + '\'' +
-//                ", name='" + name + '\'' +
-//                ", SellerID='" + SellerID + '\'' +
-//                ", pcid='" + pcID +
-//                '}';
     }
 
     public void setCpu(String cpu) {

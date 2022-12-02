@@ -377,63 +377,64 @@
                 </LinearLayout>
             </TableRow>
 
+<!--            <TableRow-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:paddingVertical="10dp"-->
+<!--                android:paddingHorizontal="15dp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:gravity="center">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:layout_weight="1"-->
+<!--                    >-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/buttonSelect"-->
+<!--                        style="@style/Widget.MaterialComponents.TimePicker.Button"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/allerta"-->
+<!--                        android:text="Select Images"-->
+<!--                        card_view:cornerRadius="10dp"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:paddingStart="8dp"-->
+<!--                        android:paddingEnd="8dp"/>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                       android:layout_weight="2"-->
+<!--                        android:gravity="center">-->
+
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/imageButtonUpload"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="@color/white"-->
+<!--                            card_view:srcCompat="@drawable/icons8_upload_32" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Upload" />-->
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+<!--            </TableRow>-->
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
-                android:layout_gravity="center"
-                android:gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    >
-
-                    <Button
-                        android:id="@+id/buttonSelect"
-                        style="@style/Widget.MaterialComponents.TimePicker.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/allerta"
-                        android:text="Select Images"
-                        card_view:cornerRadius="10dp"
-                        android:layout_marginStart="10dp"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                       android:layout_weight="2"
-                        android:gravity="center">
-
-                        <ImageButton
-                            android:id="@+id/imageButtonUpload"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:background="@color/white"
-                            card_view:srcCompat="@drawable/icons8_upload_32" />
-
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Upload" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="20dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
