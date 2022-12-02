@@ -155,10 +155,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
                                 item.setSellerID(LoginActivity.profile.getUID());  //TODO:
 
-                                db.collection("purchases").document(item.getPcID()).set(item).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        db.collection("purchases").document(item.getPcID()).set(item).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText(getApplicationContext(), "Listing deleted", Toast.LENGTH_LONG).show();
@@ -167,7 +167,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                                                 startActivity(buyIntent);
                                             }
                                         });
-
                                     }
                                 });
 
