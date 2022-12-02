@@ -10,13 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
-
         <LinearLayout
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-         >
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/editTextSearch"
@@ -26,7 +23,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_weight="1"
                 android:hint="Search"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:drawableLeft="@drawable/icons8_search__1_" />
 
             <ImageButton
                 android:id="@+id/imageButton"
@@ -34,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/white"
-                card_view:srcCompat="@drawable/icons8_search"
+                card_view:srcCompat="@drawable/icons8_slider_24"
 />
         </LinearLayout>
 

@@ -49,10 +49,8 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private Button cancelButton;
     private FirebaseFirestore db;
     private int pcID;
-
     private int num = 0;
     private int pos = 0;
-
     Computers items = new Computers();
 
 
@@ -80,12 +78,10 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = getIntent();
         num = intent.getIntExtra("number", 0);
         pos = intent.getIntExtra("position", 0);
-        items = MainActivity.ItemsList.get(pos);
 
-        if(num == 1){
-
+        if (num == 1) {
+            items = MainActivity.ItemsList.get(pos);
             titleTV.setText("Edit Listing");
-
             db.collection("profiles").whereEqualTo("UID", items.getSellerID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -105,22 +101,21 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                         hddET.setText(items.getHdd());
                         ssdET.setText(items.getSsd());
                         priceET.setText(items.getPrice());
-
-
                     }
                 }
             });
+        }else if (num == 4){
+            titleTV.setText("Search");
+            addButton.setText("Search");
         }
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.buttonSAVE){
+        if (v.getId() == R.id.buttonSAVE) {
             //ADD/EDIT TO DATABASE
-
-            if(num==1){
-
+            if (num == 1) {
                 CollectionReference computers = db.collection("computers");
                 Computers item =
                         new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
@@ -136,8 +131,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
 
-
-            }else {
+            } else {
                 CollectionReference computers = db.collection("computers");
                 Computers item =
                         new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
@@ -158,14 +152,14 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 });
             }
-        }
-        else if(v.getId() == R.id.buttonCANCEL){
-            //RETURNNNNNNNNNNNNNN
+        } else if (v.getId() == R.id.buttonCANCEL) {
+            Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
+            startActivity(temp);
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         super.onCreateOptionsMenu(menu);
 
@@ -175,24 +169,23 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         inflater.inflate(R.menu.menu, menu);
 
 
-
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId() == R.id.home){
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home) {
 
             Intent HomeIntent = new Intent(AddEditActivity.this, MainActivity.class);
             startActivity(HomeIntent);
 
         }
-        if(item.getItemId() == R.id.addlisting){
+        if (item.getItemId() == R.id.addlisting) {
             Intent AddIntent = new Intent(AddEditActivity.this, AddEditActivity.class);
 
             startActivity(AddIntent);
         }
-        if(item.getItemId() == R.id.viewlisting){
+        if (item.getItemId() == R.id.viewlisting) {
 
             Intent ViewIntent = new Intent(AddEditActivity.this, MainActivity.class);
 
@@ -201,7 +194,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(ViewIntent);
 
         }
-        if(item.getItemId() == R.id.purchases){
+        if (item.getItemId() == R.id.purchases) {
 
             Intent ViewIntent = new Intent(AddEditActivity.this, MainActivity.class);
 
@@ -210,7 +203,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(ViewIntent);
 
         }
-        if(item.getItemId() == R.id.profile){
+        if (item.getItemId() == R.id.profile) {
 
             //TBA WHEN THE PROFILE ACTIVITY IS CREATED
 
@@ -218,14 +211,14 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(ProfileIntent);
 
         }
-        if(item.getItemId() == R.id.about){
+        if (item.getItemId() == R.id.about) {
 
             //TBA WHEN ABOUT ACTIVITY IS CREATED
             Intent HomeIntent = new Intent(AddEditActivity.this, MainActivity.class);
             startActivity(HomeIntent);
 
         }
-        if(item.getItemId() == R.id.logout){
+        if (item.getItemId() == R.id.logout) {
 
             FirebaseAuth.getInstance().signOut();
 

@@ -7,6 +7,7 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, TextView.OnEditorActionListener {
     private ListView itemsListView;
     static FirebaseFirestore db;
     public static ArrayList<Computers> ItemsList = new ArrayList<>();
@@ -117,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 });
                 break;
-
             default:
                 db.collection("computers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -135,12 +136,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 map.put("price", comp.getPrice());
                                 data.add(map);
                             }
-//        // create the resource, from, and to variables
+        // create the resource, from, and to variables
                             int resource = R.layout.list_item;
                             String[] from = {"name", "price"};
                             int[] to = {R.id.textViewNamein, R.id.textViewPrice};
-//        String[] from = {"powersupply", "sellerID", "ssd", "price", "motherboard", "name", "pcase", "cpu", "hdd", "gpu", "ram"};
-
                             // create and set the adapter
                             SimpleAdapter adapter =
                                     new SimpleAdapter(getApplicationContext(), data, resource, from, to);
@@ -149,26 +148,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     }
                 });
         }
-
     }
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent detail;
-        switch (number){
+        switch (number) {
             case 1: //listings
                 detail = new Intent(MainActivity.this, AddEditActivity.class);
                 detail.putExtra("position", position);
                 detail.putExtra("number", number);
                 startActivity(detail);
                 break;
-//            case 2: //purchases
-//                detail = new Intent(MainActivity.this, ItemActivity.class);
-//                detail.putExtra("position", position);
-//                detail.putExtra("number", number);
-//                startActivity(detail);
-//                break;
             default:
                 detail = new Intent(MainActivity.this, ItemActivity.class);
                 detail.putExtra("position", position);
@@ -176,106 +166,79 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(detail);
                 break;
         }
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         super.onCreateOptionsMenu(menu);
-
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-
-//        menu.getItem(0).setVisible(false);
-
-
+        menu.getItem(0).setVisible(false);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.home){
+    public void onClick(View v) {
+       Intent searchPage = new Intent(MainActivity.this, AddEditActivity.class);
+       searchPage.putExtra("number", 4);
+       startActivity(searchPage);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.home) {
             Intent HomeIntent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(HomeIntent);
-
         }
         if (item.getItemId() == R.id.addlisting) {
             Intent AddIntent = new Intent(MainActivity.this, AddEditActivity.class);
-
             startActivity(AddIntent);
         }
         if (item.getItemId() == R.id.viewlisting) {
-
             Intent ViewIntent = new Intent(MainActivity.this, MainActivity.class);
-
             ViewIntent.putExtra("number", 1);
-
             startActivity(ViewIntent);
-
         }
         if (item.getItemId() == R.id.purchases) {
-
             Intent ViewIntent = new Intent(MainActivity.this, MainActivity.class);
-
             ViewIntent.putExtra("number", 2);
-
             startActivity(ViewIntent);
-
         }
         if (item.getItemId() == R.id.profile) {
-
             //TBA WHEN THE PROFILE ACTIVITY IS CREATED
-
             Intent ProfileIntent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(ProfileIntent);
-
         }
         if (item.getItemId() == R.id.about) {
-
-
             //TBA WHEN ABOUT ACTIVITY IS CREATED
             Intent HomeIntent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(HomeIntent);
-
         }
         if (item.getItemId() == R.id.logout) {
 
             FirebaseAuth.getInstance().signOut();
-
             Intent HomeIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(HomeIntent);
-
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
-    public void onClick(View v) {
-
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        Log.d("TAG", "onClick: searching...");
         ArrayList<Computers> templist = new ArrayList<>();
-
-        if(v.getId() == R.id.imageButton){
-            if(!searchET.getText().toString().isEmpty())
-
-            for(Computers x: ItemsList){
-                String temp = x.toString();
-                String search = searchET.getText().toString();
-                if(temp.contains(search)){
-                    templist.add(x);
+        if (v.getId() == R.id.imageButton) {
+            if (!searchET.getText().toString().isEmpty())
+                for (Computers x : ItemsList) {
+                    String temp = x.toString();
+                    String search = searchET.getText().toString();
+                    if (temp.contains(search)) {
+                        templist.add(x);
+                    }
                 }
-            }
-
             ItemsList = templist;
-
             UpdateDisplay();
-
         }
+        return false;
     }
 }

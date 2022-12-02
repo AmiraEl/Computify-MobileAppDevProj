@@ -153,7 +153,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                item.setSellerID(LoginActivity.profile.getUID());  //TODO:
+                                item.setSellerID(LoginActivity.profile.getUID());
 
                                 db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
