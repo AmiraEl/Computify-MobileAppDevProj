@@ -53,6 +53,7 @@ public class ComputersService extends Service {
                         .build();
 
         //-----------------------------------------------------
+
         return START_STICKY;
     }
 
@@ -65,6 +66,7 @@ public class ComputersService extends Service {
     private void startTimer() {
         TimerTask task = new TimerTask()
         {
+
             @Override
             public void run() {
 //                for (int i = 0; i< array.length;i++) {
@@ -73,6 +75,8 @@ public class ComputersService extends Service {
 //                }
                     }
             };
+
+
         timer = new Timer(true);
         int delay = 0;   // 1/2 hour
         int interval = 1000 * 5;   // 1/2 hour
