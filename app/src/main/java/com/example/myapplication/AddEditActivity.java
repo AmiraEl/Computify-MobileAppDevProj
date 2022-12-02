@@ -314,14 +314,14 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
 
             //TBA WHEN THE PROFILE ACTIVITY IS CREATED
 
-            Intent ProfileIntent = new Intent(AddEditActivity.this, MainActivity.class);
+            Intent ProfileIntent = new Intent(AddEditActivity.this, ProfileActivity.class);
             startActivity(ProfileIntent);
 
         }
         if (item.getItemId() == R.id.about) {
 
             //TBA WHEN ABOUT ACTIVITY IS CREATED
-            Intent HomeIntent = new Intent(AddEditActivity.this, MainActivity.class);
+            Intent HomeIntent = new Intent(AddEditActivity.this, AboutActivity.class);
             startActivity(HomeIntent);
 
         }

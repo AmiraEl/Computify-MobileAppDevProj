@@ -186,19 +186,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
+    public void onClick(View v) {
+        Intent searchPage = new Intent(MainActivity.this, AddEditActivity.class);
+        searchPage.putExtra("number", 4);
+        startActivity(searchPage);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
 //        menu.getItem(0).setVisible(false);
         return true;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent searchPage = new Intent(MainActivity.this, AddEditActivity.class);
-        searchPage.putExtra("number", 4);
-        startActivity(searchPage);
     }
 
     @Override
@@ -223,12 +223,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         if (item.getItemId() == R.id.profile) {
             //TBA WHEN THE PROFILE ACTIVITY IS CREATED
-            Intent ProfileIntent = new Intent(MainActivity.this, MainActivity.class);
+            Intent ProfileIntent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(ProfileIntent);
         }
         if (item.getItemId() == R.id.about) {
             //TBA WHEN ABOUT ACTIVITY IS CREATED
-            Intent HomeIntent = new Intent(MainActivity.this, MainActivity.class);
+            Intent HomeIntent = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(HomeIntent);
         }
         if (item.getItemId() == R.id.logout) {
