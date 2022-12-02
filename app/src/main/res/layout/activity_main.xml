@@ -4,51 +4,69 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/login_bk">
+
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        android:layout_marginTop="15dp">
 
-            <EditText
-                android:id="@+id/editTextSearch"
-                android:layout_width="220dp"
-                android:layout_height="wrap_content"
-                android:ems="11"
-                android:layout_marginStart="25dp"
-                android:layout_weight="1"
-                android:hint="Search"
-                android:inputType="textPersonName"
-                android:drawableLeft="@drawable/icons8_search__1_" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/white"
-                card_view:srcCompat="@drawable/icons8_slider_24"
-/>
-        </LinearLayout>
-
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+        <TextView
+            android:id="@+id/textViewHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
-            android:background="@color/colorDivider" />
+            android:fontFamily="@font/allerta"
+            android:text="HOME"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="45sp" />
     </TableRow>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        card_view:cardCornerRadius="16dp"
+        android:layout_marginHorizontal="10dp"
+        card_view:cardElevation="10dp"
+        >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/icons8_search__1_"
+                    android:ems="11"
+                    android:hint="  Search"
+                    android:inputType="textPersonName" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/whiteCardColor"
+                    card_view:srcCompat="@drawable/icons8_slider_24" />
+            </LinearLayout>
+
+        </TableRow>
+    </androidx.cardview.widget.CardView>
+
 
     <TableRow
         android:layout_width="match_parent"
@@ -64,8 +82,10 @@
             <ListView
                 android:id="@+id/listViewItems"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:isScrollContainer="false"/>
         </LinearLayout>
+
     </TableRow>
 
 </TableLayout>

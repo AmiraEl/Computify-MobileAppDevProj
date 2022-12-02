@@ -10,6 +10,17 @@
     android:background="@drawable/login_bk"
     android:gravity="center_vertical">
 
+    <TextView
+        android:id="@+id/textViewHome2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/allerta"
+        android:text="About"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="45sp" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +29,8 @@
         app:cardElevation="10dp"
         app:cardMaxElevation="12dp"
         app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,7 +49,13 @@
                 android:text="This app was created as the submission to the CMP354 Project of F22"
                 android:textAlignment="center"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="25sp" />
+                android:textSize="24sp" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -51,7 +69,7 @@
                 android:text="Created by - Yusuf Shanableh and Amira Elnashar "
                 android:textAlignment="center"
                 android:textColor="@color/primaryTextColor"
-                android:textSize="25sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -39,11 +39,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     int number;
     private ImageButton searchButton;
     private EditText searchET;
+    private TextView textViewHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textViewHome = findViewById(R.id.textViewHome);
         searchET = findViewById(R.id.editTextSearch);
         itemsListView = findViewById(R.id.listViewItems);
         searchButton = findViewById(R.id.imageButton);
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ItemsList.clear();
         switch (number) {
             case 1:  // listings
+                textViewHome.setText("LISTINGS");
                 db.collection("computers").whereEqualTo("sellerID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 break;
             case 2:  //purchases
+                textViewHome.setText("PURCHASES");
                 db.collection("purchases").whereEqualTo("sellerID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -119,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 break;
             case 4: //Searching
+                textViewHome.setText("SEARCH");
                 for (Computers comp : SearchList) {
                     Log.d("TAG", "here");
                     HashMap<String, String> map = new HashMap<String, String>();
@@ -136,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 itemsListView.setAdapter(adapter);
                 break;
             default:
+                textViewHome.setText("HOME");
                 db.collection("computers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -115,7 +115,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
 
         if (num == 1) {
             items = MainActivity.ItemsList.get(pos);
-            titleTV.setText("Edit Listing");
+            titleTV.setText("EDIT LISTING");
             db.collection("profiles").whereEqualTo("UID", items.getSellerID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -139,8 +139,8 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 }
             });
         } else if (num == 4) {
-            titleTV.setText("Search");
-            addButton.setText("Search");
+            titleTV.setText("SEARCH");
+            addButton.setText("SEARCH");
         }
 
 //    SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.UK);

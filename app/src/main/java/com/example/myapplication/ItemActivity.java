@@ -79,7 +79,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
 
         if(num == 2){
             //NO BUTTON
-
+            buyButton.setVisibility(View.INVISIBLE);
         }
 
         if(LoginActivity.profile.getUID().equals(item.getSellerID())){

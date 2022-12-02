@@ -79,7 +79,7 @@ public class ComputersService extends Service {
 
         timer = new Timer(true);
         int delay = 0;   // 1/2 hour
-        int interval = 1000 * 5;   // 1/2 hour
+        int interval = 1000 * 60 * 30;   // 1/2 hour
         timer.schedule(task, delay, interval);
     }
 
