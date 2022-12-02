@@ -51,6 +51,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private int pcID;
 
     private int num = 0;
+    private int pos = 0;
 
     Computers items = new Computers();
 
@@ -76,11 +77,13 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         cancelButton.setOnClickListener(this);
         db = MainActivity.db;
 
-
         Intent intent = getIntent();
         num = intent.getIntExtra("number", 0);
+        pos = intent.getIntExtra("position", 0);
+        items = MainActivity.ItemsList.get(pos);
 
         if(num == 1){
+
             titleTV.setText("Edit Listing");
 
             db.collection("profiles").whereEqualTo("UID", items.getSellerID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -122,8 +125,18 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 Computers item =
                         new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
                                 motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
-                                priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
-                computers.document(items.getPcID()).set(item);
+                                priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), items.getPcID());
+                computers.document(items.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        computers.document(items.getPcID()).set(item);
+                        Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
+                        temp.putExtra("number", num);
+                        startActivity(temp);
+                    }
+                });
+
+
             }else {
                 CollectionReference computers = db.collection("computers");
                 Computers item =

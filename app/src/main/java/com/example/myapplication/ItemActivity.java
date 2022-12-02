@@ -69,6 +69,11 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         buyButton = findViewById(R.id.buttonSAVE);
 
         if(num == 2){
+            //NO BUTTON
+
+        }
+
+        if(LoginActivity.profile.getUID().equals(item.getSellerID())){
             buyButton.setText("Delete");
         }
 
@@ -106,7 +111,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.buttonSAVE) {
-            if (num == 2) {
+            if (LoginActivity.profile.getUID().equals(item.getSellerID())) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ItemActivity.this);
 
@@ -148,23 +153,24 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                db.collection("purchases").add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Toast.makeText(getApplicationContext(), "Computer has been purchased", Toast.LENGTH_LONG).show();
-                                    }
-                                });
+                                item.setSellerID(LoginActivity.profile.getUID());  //TODO:
 
-                                db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                db.collection("purchases").document(item.getPcID()).set(item).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Listing deleted", Toast.LENGTH_LONG).show();
+                                        db.collection("computers").document(item.getPcID()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Toast.makeText(getApplicationContext(), "Listing deleted", Toast.LENGTH_LONG).show();
+                                                Intent buyIntent = new Intent(ItemActivity.this, MainActivity.class);
+                                                buyIntent.putExtra("number", 2);
+                                                startActivity(buyIntent);
+                                            }
+                                        });
 
-                                        Intent buyIntent = new Intent(ItemActivity.this, MainActivity.class);
-                                        buyIntent.putExtra("number", 2);
-                                        startActivity(buyIntent);
                                     }
                                 });
+
 
                             }
                         }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.car.ui.toolbar.SearchConfig;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -37,12 +39,18 @@ public class LoginActivity extends AppCompatActivity {
         signUp = (Button) findViewById(R.id.buttonSignUpGoto);
         et_password = findViewById(R.id.editTextPassword);
         et_email = findViewById(R.id.editTextEmail);
+//        prevents user from re-entering the app after logging out
+        OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
+            @Override
+            public void handleOnBackPressed() {
+                onDestroy();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     public void onClick_btn(View v)
     {
-
-
         if (v.getId()==R.id.buttonLogin) {
 
             if (et_password.getText().toString().isEmpty()) return;
