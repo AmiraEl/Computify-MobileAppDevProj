@@ -50,6 +50,7 @@ dependencies {
     // ButterKnife for view binding
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
     // Glide for image loading
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
