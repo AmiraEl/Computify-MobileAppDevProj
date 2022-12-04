@@ -202,10 +202,10 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                         // create the pending intent
                         int flags = PendingIntent.FLAG_IMMUTABLE;
                         PendingIntent pendingIntent =
-                                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,flags);//<--------
+                                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, flags);//<--------
 
                         // create the variables for the notification
-                        CharSequence  contentTitle = "Computify";
+                        CharSequence contentTitle = "Computify";
 
                         CharSequence tickerText = "New computers available";
                         CharSequence contentText = "Your listing has been created";
@@ -249,7 +249,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 ArrayList<Computers> tempList = new ArrayList<>();
                 Log.d("TEST", "onClick: " + item.toString());
                 for (Computers x : MainActivity.ItemsList) {
-                    if (item.equals(x) && Integer.parseInt(priceET.getText().toString()) <= Integer.parseInt(x.getPrice()) && Integer.parseInt(priceET.getText().toString()) <= Integer.parseInt(x.getPrice())){
+                    if (item.equals(x) && Integer.parseInt(priceET.getText().toString()) <= Integer.parseInt(x.getPrice()) && Integer.parseInt(priceET.getText().toString()) <= Integer.parseInt(x.getPrice())) {
                         tempList.add(x);
                     }
                     Log.d("TEST", "onClick: " + x.toString());
@@ -260,25 +260,29 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(temp);
 
             } else {
-                CollectionReference computers = db.collection("computers");
-                Computers item =
-                        new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
-                                motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
-                                priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
-                computers.add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
-                        computers.document(documentReference.getId()).update("pcID", documentReference.getId());
-                        Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
-                        startActivity(temp);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("TAG", "Error adding document", e);
-                    }
-                });
+                if (nameET.getText().toString().isEmpty() || priceET.getText().toString().isEmpty()) {
+                        Toast.makeText(getApplicationContext(),"Error: please input a name and a price!", Toast.LENGTH_LONG).show();
+                } else {
+                    CollectionReference computers = db.collection("computers");
+                    Computers item =
+                            new Computers(cpuET.getText().toString(), gpuET.getText().toString(), ramET.getText().toString(), caseET.getText().toString(),
+                                    motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
+                                    priceET.getText().toString(), nameET.getText().toString(), LoginActivity.profile.getUID(), "");
+                    computers.add(item).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
+                            computers.document(documentReference.getId()).update("pcID", documentReference.getId());
+                            Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
+                            startActivity(temp);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("TAG", "Error adding document", e);
+                        }
+                    });
+                }
             }
         } else if (v.getId() == R.id.buttonCANCEL) {
             Intent temp = new Intent(AddEditActivity.this, MainActivity.class);
