@@ -73,8 +73,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private Button cancelButton;
     private TableRow searchRow;
     private TableRow priceRow;
-    //    private Button saveButton;
-    //    private ImageButton uploadButton;
     private FirebaseFirestore db;
     private int pcID;
     private int num = 0;
