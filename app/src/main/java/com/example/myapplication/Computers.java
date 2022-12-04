@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class Computers {
@@ -35,17 +36,17 @@ public class Computers {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         Computers computers = (Computers) o;
-        return (Objects.equals(cpu, computers.cpu)|| computers.cpu.isEmpty())
-                && (Objects.equals(gpu, computers.gpu)|| computers.gpu.isEmpty())
-                && (Objects.equals(ram, computers.ram)|| computers.ram.isEmpty())
-                && (Objects.equals(pcase, computers.pcase)|| computers.pcase.isEmpty())
-                && (Objects.equals(motherboard, computers.motherboard) || computers.motherboard.isEmpty())
-                && (Objects.equals(powersupply, computers.powersupply)|| computers.powersupply.isEmpty())
-                && (Objects.equals(hdd, computers.hdd)|| computers.hdd.isEmpty())
-                && (Objects.equals(ssd, computers.ssd)|| computers.ssd.isEmpty())
-                && (Objects.equals(name.toLowerCase(), computers.name.toLowerCase()) || computers.name.isEmpty());
+//        Objects.equals(cpu.toLowerCase(), computers.cpu.toLowerCase()
+        return (computers.cpu.toLowerCase().contains(cpu.toLowerCase())|| cpu.isEmpty())
+                && (computers.gpu.toLowerCase().contains(gpu.toLowerCase())|| gpu.isEmpty())
+                && (computers.ram.toLowerCase().contains(ram.toLowerCase())|| ram.isEmpty())
+                && (computers.pcase.toLowerCase().contains(pcase.toLowerCase())|| pcase.isEmpty())
+                && (computers.motherboard.toLowerCase().contains(motherboard.toLowerCase()) || motherboard.isEmpty())
+                && (computers.powersupply.toLowerCase().contains(powersupply.toLowerCase())|| powersupply.isEmpty())
+                && (computers.hdd.toLowerCase().contains(hdd.toLowerCase())|| hdd.isEmpty())
+                && (computers.ssd.toLowerCase().contains(ssd.toLowerCase())|| ssd.isEmpty())
+                && (computers.name.toLowerCase().contains(name.toLowerCase()) || name.isEmpty());
     }
 
     @Override

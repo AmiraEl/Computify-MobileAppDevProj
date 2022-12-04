@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, TextView.OnEditorActionListener {
     private ListView itemsListView;
@@ -54,14 +55,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db = FirebaseFirestore.getInstance();
         Intent checker = getIntent();
         number = checker.getIntExtra("number", 0);
+        db.collection("profiles").whereEqualTo("UID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for(QueryDocumentSnapshot document: task.getResult()) {
+                    Profiles temp = document.toObject(Profiles.class);
+                    LoginActivity.profile.setUsername(temp.getUsername());
+                }
+            }
+        });
+
+        searchET.setOnEditorActionListener(this);
+
         UpdateDisplay();
     }
 
     private void UpdateDisplay() {
         ArrayList<HashMap<String, String>> data = new ArrayList<>();
-        ItemsList.clear();
+
         switch (number) {
             case 1:  // listings
+                ItemsList.clear();
                 textViewHome.setText("LISTINGS");
                 db.collection("computers").whereEqualTo("sellerID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -93,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 break;
             case 2:  //purchases
+                ItemsList.clear();
                 textViewHome.setText("PURCHASES");
                 db.collection("purchases").whereEqualTo("sellerID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -141,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 itemsListView.setAdapter(adapter);
                 break;
             default:
+                ItemsList.clear();
                 textViewHome.setText("HOME");
                 db.collection("computers").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -250,18 +266,26 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         Log.d("TAG", "onClick: searching...");
         ArrayList<Computers> templist = new ArrayList<>();
-        if (v.getId() == R.id.imageButton) {
-            if (!searchET.getText().toString().isEmpty())
+//        if (v.getId() == R.id.imageButton) {
+            if (!searchET.getText().toString().isEmpty()){
                 for (Computers x : ItemsList) {
-                    String temp = x.toString();
-                    String search = searchET.getText().toString();
+                    String temp = x.getName().toLowerCase();
+                    String search = searchET.getText().toString().toLowerCase();
                     if (temp.contains(search)) {
                         templist.add(x);
                     }
-                }
-            ItemsList = templist;
-            UpdateDisplay();
-        }
+
+              }
+                SearchList = templist;
+                number=4;
+
+        }else{
+                Intent tempintent = getIntent();
+                number  = tempintent.getIntExtra("number", 0);
+
+            }
+
+        UpdateDisplay();
         return false;
     }
 }

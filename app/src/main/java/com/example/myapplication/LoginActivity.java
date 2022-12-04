@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                                 assert user != null;
                                 profile.setUID(mAuth.getCurrentUser().getUid());
                                 profile.setEmail(mAuth.getCurrentUser().getEmail());
+
 //                                profile.setUsername(user.getDisplayName());
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                 i.putExtra("email", user.getEmail());
