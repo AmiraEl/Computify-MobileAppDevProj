@@ -1,20 +1,11 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,10 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,28 +28,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.UUID;
 
 public class AddEditActivity extends AppCompatActivity implements View.OnClickListener {
+    Computers items = new Computers();
     private TextView titleTV;
     private EditText nameET;
     private EditText gpuET;
@@ -77,7 +57,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private int pcID;
     private int num = 0;
     private int pos = 0;
-    Computers items = new Computers();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,9 +190,9 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                                 motherET.getText().toString(), psuET.getText().toString(), hddET.getText().toString(), ssdET.getText().toString(),
                                 priceET.getText().toString(), nameET.getText().toString(), null, null);
                 ArrayList<Computers> tempList = new ArrayList<>();
-                Log.d("TEST", "onClick: " + item.toString());
+                Log.d("TEST", "onClick: " + item);
                 for (Computers x : MainActivity.ItemsList) {
-                    if (item.equals(x) && (maxPrice.getText().toString().isEmpty() || (Integer.parseInt(maxPrice.getText().toString()) >= Integer.parseInt(x.getPrice()))) && (minPrice.getText().toString().isEmpty() || (Integer.parseInt(maxPrice.getText().toString()) >= Integer.parseInt(x.getPrice())))){
+                    if (item.equals(x) && (maxPrice.getText().toString().isEmpty() || (Integer.parseInt(maxPrice.getText().toString()) >= Integer.parseInt(x.getPrice()))) && (minPrice.getText().toString().isEmpty() || (Integer.parseInt(maxPrice.getText().toString()) >= Integer.parseInt(x.getPrice())))) {
                         tempList.add(x);
                     }
                     Log.d("TEST", "onClick: " + x.toString());
@@ -225,7 +204,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
 
             } else {
                 if (nameET.getText().toString().isEmpty() || priceET.getText().toString().isEmpty()) {
-                        Toast.makeText(getApplicationContext(),"Error: please input a name and a price!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error: please input a name and a price!", Toast.LENGTH_LONG).show();
                 } else {
                     CollectionReference computers = db.collection("computers");
                     Computers item =

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
->
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -40,8 +39,8 @@
                     android:id="@+id/textViewNamein"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="25dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/allerta"
                     android:text="Name"
@@ -71,13 +70,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="2dp"
                         android:layout_weight="1"
                         android:fontFamily="sans-serif"
                         android:text="Price"
                         android:textColor="@color/primaryTextColor"
-                        android:textSize="@dimen/headerTextSize"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="2dp"/>
+                        android:textSize="@dimen/headerTextSize" />
                 </LinearLayout>
 
             </LinearLayout>

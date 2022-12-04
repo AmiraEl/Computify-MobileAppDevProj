@@ -1,14 +1,19 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-
 public class Profiles {
 
     private String username;
     private String email;
     private String UID;
 
+
+    public Profiles() {
+    }
+
+    public Profiles(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
 
     public String getUID() {
         return UID;
@@ -18,33 +23,29 @@ public class Profiles {
         this.UID = UID;
     }
 
-    public String getUsername(){return username;}
+    public String getUsername() {
+        return username;
+    }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getEmail(){return email;}
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-
     @Override
-    public String toString(){
+    public String toString() {
         return "Profiles{" +
                 "username= '" + username + '\'' +
                 ", email= " + email
-                +'}';
+                + '}';
     }
-
-    public Profiles(){}
-    public Profiles(String username, String email){
-        this.username = username;
-        this.email = email;
-    }
-
 
 
 }

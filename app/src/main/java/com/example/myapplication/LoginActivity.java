@@ -1,9 +1,5 @@
 package com.example.myapplication;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.car.ui.toolbar.SearchConfig;
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,16 +20,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String TAG = "CMP354:";
+    public static Profiles profile = new Profiles();
+    private final String TAG = "CMP354:";
     private EditText et_email, et_password;
     private FirebaseAuth mAuth;
     private Button login, signUp;
-    public static Profiles profile = new Profiles();
     private ComputerApp app;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -38,12 +36,12 @@ public class LoginActivity extends AppCompatActivity {
 
         //authentication
         mAuth = FirebaseAuth.getInstance();
-        login = (Button) findViewById(R.id.buttonLogin);
-        signUp = (Button) findViewById(R.id.buttonSignUpGoto);
+        login = findViewById(R.id.buttonLogin);
+        signUp = findViewById(R.id.buttonSignUpGoto);
         et_password = findViewById(R.id.editTextPassword);
         et_email = findViewById(R.id.editTextEmail);
 //        prevents user from re-entering the app after logging out
-        OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 onDestroy();
@@ -52,9 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
-    public void onClick_btn(View v)
-    {
-        if (v.getId()==R.id.buttonLogin) {
+    public void onClick_btn(View v) {
+        if (v.getId() == R.id.buttonLogin) {
 
             if (et_password.getText().toString().isEmpty()) return;
 
@@ -88,8 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         //----------------------------------------
         //Create a new signIn method which takes in an email address and password,
         // validates them, and then signs a user in with the signInWithEmailAndPassword method.
-        else if (v.getId()==R.id.buttonSignUpGoto)
-        {
+        else if (v.getId() == R.id.buttonSignUpGoto) {
             Intent sign = new Intent(getApplicationContext(), SignUpActivity.class);
             startActivity(sign);
 

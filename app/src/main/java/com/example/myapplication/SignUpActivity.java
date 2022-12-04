@@ -1,8 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,22 +24,21 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private String TAG = "CMP354:";
+    static FirebaseFirestore db;
+    private final String TAG = "CMP354:";
     private EditText et_email, et_password, et_username;
     private FirebaseAuth mAuth;
     private Button login, signUp;
-    static FirebaseFirestore db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
         //authentication
         mAuth = FirebaseAuth.getInstance();
-        login = (Button) findViewById(R.id.buttonLoginGoto);
-        signUp = (Button) findViewById(R.id.buttonSignUp);
+        login = findViewById(R.id.buttonLoginGoto);
+        signUp = findViewById(R.id.buttonSignUp);
         et_password = findViewById(R.id.editTextPassword1);
         et_email = findViewById(R.id.editTextEmail1);
         et_username = findViewById(R.id.editTextUserName);
@@ -47,13 +46,13 @@ public class SignUpActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
     }
 
-    public void onClick_btn(View v)
-    {
+    public void onClick_btn(View v) {
 
-        if (v.getId()==R.id.buttonSignUp) {
-            if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()){
+        if (v.getId() == R.id.buttonSignUp) {
+            if (et_password.getText().toString().isEmpty() || et_email.getText().toString().isEmpty() || et_username.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_LONG).show();
-                return;}
+                return;
+            }
 
             //Create a new signIn method which takes in an email address and password,
             // validates them, and then signs a user in with the signInWithEmailAndPassword method.
@@ -69,11 +68,11 @@ public class SignUpActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
 
 //                                FirebaseAuth auth = FirebaseAuth.getInstance();
-                                if(mAuth.getCurrentUser().getUid() != null) {
+                                if (mAuth.getCurrentUser().getUid() != null) {
                                     String uid = mAuth.getCurrentUser().getUid();
                                     CollectionReference profiles = db.collection("profiles");
 
-                                    Map<String,Object> profile = new HashMap<>();
+                                    Map<String, Object> profile = new HashMap<>();
 
                                     profile.put("UID", uid);
                                     profile.put("username", et_username.getText().toString());
@@ -95,8 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
         //----------------------------------------
         //Create a new signIn method which takes in an email address and password,
         // validates them, and then signs a user in with the signInWithEmailAndPassword method.
-        else if (v.getId()==R.id.buttonLoginGoto)
-        {
+        else if (v.getId() == R.id.buttonLoginGoto) {
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(login);
 

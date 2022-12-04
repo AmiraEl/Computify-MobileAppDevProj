@@ -7,10 +7,9 @@ public class ComputerApp extends Application {
 
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
-            startService(new Intent(this, ComputersService.class));
+        startService(new Intent(this, ComputersService.class));
     }
 }

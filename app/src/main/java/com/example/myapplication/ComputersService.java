@@ -13,16 +13,16 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ComputersService extends Service {
 
+    int count = 0;
     private ComputerApp app;
     private Timer timer;
     private String[] array = new String[]{};
-    int count = 0;
+
     @Override
     public void onCreate() {
         array = new String[]{"Find the computer of your dreams!", "Discounts up to 30% for a limited time only!", "Top of the line computers are waiting for you!"};
@@ -37,14 +37,13 @@ public class ComputersService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
-    {
+    public int onStartCommand(Intent intent, int flags, int startId) {
         //-------------------------------------------------------------------------
         Intent notificationIntent = new Intent(this, LoginActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_IMMUTABLE);
         NotificationChannel notificationChannel = new NotificationChannel("Channel_ID", "My Notifications", NotificationManager.IMPORTANCE_LOW);
-        NotificationManager manager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.createNotificationChannel(notificationChannel);
         Notification notification =
                 new Notification.Builder(this, "Channel_ID")
@@ -64,17 +63,16 @@ public class ComputersService extends Service {
     }
 
     private void startTimer() {
-        TimerTask task = new TimerTask()
-        {
+        TimerTask task = new TimerTask() {
 
             @Override
             public void run() {
 //                for (int i = 0; i< array.length;i++) {
-                    // display notification
-                    sendNotification(count);
+                // display notification
+                sendNotification(count);
 //                }
-                    }
-            };
+            }
+        };
 
 
         timer = new Timer(true);
@@ -89,8 +87,7 @@ public class ComputersService extends Service {
         }
     }
 
-    private void sendNotification(int i )
-    {
+    private void sendNotification(int i) {
         // create the intent for the notification
         Intent notificationIntent = new Intent(this, LoginActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -98,10 +95,10 @@ public class ComputersService extends Service {
         // create the pending intent
         int flags = PendingIntent.FLAG_IMMUTABLE;
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0, notificationIntent,flags);//<--------
+                PendingIntent.getActivity(this, 0, notificationIntent, flags);//<--------
 
         // create the variables for the notification
-        CharSequence  contentTitle = "Computify";
+        CharSequence contentTitle = "Computify";
 
         CharSequence tickerText = "New computers available";
         CharSequence contentText = array[count];
@@ -125,7 +122,7 @@ public class ComputersService extends Service {
                 .setChannelId("Channel_ID")
                 .build();
 
-        final int NOTIFICATION_ID = count+ 1; //cannot be 0
+        final int NOTIFICATION_ID = count + 1; //cannot be 0
         manager.notify(NOTIFICATION_ID, notification);
 
         count = count + 1 % 2;

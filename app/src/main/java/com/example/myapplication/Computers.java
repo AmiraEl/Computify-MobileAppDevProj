@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class Computers {
@@ -33,19 +32,22 @@ public class Computers {
 
     }
 
+    public Computers() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         Computers computers = (Computers) o;
 //        Objects.equals(cpu.toLowerCase(), computers.cpu.toLowerCase()
-        return (computers.cpu.toLowerCase().contains(cpu.toLowerCase())|| cpu.isEmpty())
-                && (computers.gpu.toLowerCase().contains(gpu.toLowerCase())|| gpu.isEmpty())
-                && (computers.ram.toLowerCase().contains(ram.toLowerCase())|| ram.isEmpty())
-                && (computers.pcase.toLowerCase().contains(pcase.toLowerCase())|| pcase.isEmpty())
+        return (computers.cpu.toLowerCase().contains(cpu.toLowerCase()) || cpu.isEmpty())
+                && (computers.gpu.toLowerCase().contains(gpu.toLowerCase()) || gpu.isEmpty())
+                && (computers.ram.toLowerCase().contains(ram.toLowerCase()) || ram.isEmpty())
+                && (computers.pcase.toLowerCase().contains(pcase.toLowerCase()) || pcase.isEmpty())
                 && (computers.motherboard.toLowerCase().contains(motherboard.toLowerCase()) || motherboard.isEmpty())
-                && (computers.powersupply.toLowerCase().contains(powersupply.toLowerCase())|| powersupply.isEmpty())
-                && (computers.hdd.toLowerCase().contains(hdd.toLowerCase())|| hdd.isEmpty())
-                && (computers.ssd.toLowerCase().contains(ssd.toLowerCase())|| ssd.isEmpty())
+                && (computers.powersupply.toLowerCase().contains(powersupply.toLowerCase()) || powersupply.isEmpty())
+                && (computers.hdd.toLowerCase().contains(hdd.toLowerCase()) || hdd.isEmpty())
+                && (computers.ssd.toLowerCase().contains(ssd.toLowerCase()) || ssd.isEmpty())
                 && (computers.name.toLowerCase().contains(name.toLowerCase()) || name.isEmpty());
     }
 
@@ -72,42 +74,6 @@ public class Computers {
                 '}';
     }
 
-    public void setCpu(String cpu) {
-        this.cpu = cpu;
-    }
-
-    public void setGpu(String gpu) {
-        this.gpu = gpu;
-    }
-
-    public void setRam(String ram) {
-        this.ram = ram;
-    }
-
-    public void setPcase(String pcase) {
-        this.pcase = pcase;
-    }
-
-    public void setMotherboard(String motherboard) {
-        this.motherboard = motherboard;
-    }
-
-    public void setPowersupply(String powersupply) {
-        this.powersupply = powersupply;
-    }
-
-    public void setHdd(String hdd) {
-        this.hdd = hdd;
-    }
-
-    public void setSsd(String ssd) {
-        this.ssd = ssd;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
     public String getSellerID() {
         return SellerID;
     }
@@ -116,43 +82,76 @@ public class Computers {
         SellerID = sellerID;
     }
 
-    public Computers() {
-    }
-
     public String getCpu() {
         return cpu;
+    }
+
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
     }
 
     public String getGpu() {
         return gpu;
     }
 
+    public void setGpu(String gpu) {
+        this.gpu = gpu;
+    }
+
     public String getRam() {
         return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
     }
 
     public String getPcase() {
         return pcase;
     }
 
+    public void setPcase(String pcase) {
+        this.pcase = pcase;
+    }
+
     public String getMotherboard() {
         return motherboard;
+    }
+
+    public void setMotherboard(String motherboard) {
+        this.motherboard = motherboard;
     }
 
     public String getPowersupply() {
         return powersupply;
     }
 
+    public void setPowersupply(String powersupply) {
+        this.powersupply = powersupply;
+    }
+
     public String getHdd() {
         return hdd;
+    }
+
+    public void setHdd(String hdd) {
+        this.hdd = hdd;
     }
 
     public String getSsd() {
         return ssd;
     }
 
+    public void setSsd(String ssd) {
+        this.ssd = ssd;
+    }
+
     public String getPrice() {
         return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getName() {
@@ -163,11 +162,11 @@ public class Computers {
         this.name = name;
     }
 
-    public String getPcID(){
+    public String getPcID() {
         return pcID;
     }
 
-    public void setPcID(String pcID){
+    public void setPcID(String pcID) {
         this.pcID = pcID;
     }
 }

@@ -1,10 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,30 +7,30 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.HashMap;
-
 public class ItemActivity extends AppCompatActivity implements View.OnClickListener {
+    Computers item = new Computers();
     private Button buyButton;
-
     private TextView TextViewname;
     private TextView TextViewgpu;
     private TextView TextViewcpu;
@@ -49,9 +44,6 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
     private TextView TextViewPrice;
     private FirebaseFirestore db;
     private int num = 0;
-
-    Computers item = new Computers();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +69,12 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
         num = intent.getIntExtra("number", 0);
         buyButton = findViewById(R.id.buttonSAVE);
 
-        if(num == 2){
+        if (num == 2) {
             //NO BUTTON
             buyButton.setVisibility(View.INVISIBLE);
         }
 
-        if(LoginActivity.profile.getUID().equals(item.getSellerID())){
+        if (LoginActivity.profile.getUID().equals(item.getSellerID())) {
             buyButton.setText("Delete");
         }
 
@@ -144,10 +136,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                                         // create the pending intent
                                         int flags = PendingIntent.FLAG_IMMUTABLE;
                                         PendingIntent pendingIntent =
-                                                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,flags);//<--------
+                                                PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, flags);//<--------
 
                                         // create the variables for the notification
-                                        CharSequence  contentTitle = "Computify";
+                                        CharSequence contentTitle = "Computify";
 
                                         CharSequence tickerText = "New computers available";
                                         CharSequence contentText = "Your listing has been removed";
@@ -189,8 +181,7 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                 builder.setNegativeButton("cancel", null);
                 builder.show();
 
-            }
-            else{
+            } else {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ItemActivity.this);
                 builder.setTitle("Purchase"); // title bar string
@@ -216,10 +207,10 @@ public class ItemActivity extends AppCompatActivity implements View.OnClickListe
                                                 // create the pending intent
                                                 int flags = PendingIntent.FLAG_IMMUTABLE;
                                                 PendingIntent pendingIntent =
-                                                        PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent,flags);//<--------
+                                                        PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, flags);//<--------
 
                                                 // create the variables for the notification
-                                                CharSequence  contentTitle = "Computify";
+                                                CharSequence contentTitle = "Computify";
 
                                                 CharSequence tickerText = "New computers available";
                                                 CharSequence contentText = "Your order has been placed, congratulations!";

@@ -4,8 +4,8 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity"
-    android:background="@drawable/login_bk">
+    android:background="@drawable/login_bk"
+    tools:context=".MainActivity">
 
 
     <TableRow
@@ -30,10 +30,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        card_view:cardCornerRadius="16dp"
         android:layout_marginHorizontal="10dp"
-        card_view:cardElevation="10dp"
-        >
+        card_view:cardCornerRadius="16dp"
+        card_view:cardElevation="10dp">
 
         <TableRow
             android:layout_width="match_parent"
@@ -76,14 +75,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <ListView
                 android:id="@+id/listViewItems"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:isScrollContainer="false"/>
+                android:isScrollContainer="false" />
         </LinearLayout>
 
     </TableRow>

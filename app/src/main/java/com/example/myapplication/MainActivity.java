@@ -1,9 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,25 +15,25 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, View.OnClickListener, TextView.OnEditorActionListener {
-    private ListView itemsListView;
-    static FirebaseFirestore db;
     public static ArrayList<Computers> ItemsList = new ArrayList<>();
     public static ArrayList<Computers> SearchList = new ArrayList<>();
+    static FirebaseFirestore db;
     int number;
+    private ListView itemsListView;
     private ImageButton searchButton;
     private EditText searchET;
     private TextView textViewHome;
@@ -58,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         db.collection("profiles").whereEqualTo("UID", LoginActivity.profile.getUID()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for(QueryDocumentSnapshot document: task.getResult()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
                     Profiles temp = document.toObject(Profiles.class);
                     LoginActivity.profile.setUsername(temp.getUsername());
                 }
@@ -267,23 +263,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d("TAG", "onClick: searching...");
         ArrayList<Computers> templist = new ArrayList<>();
 //        if (v.getId() == R.id.imageButton) {
-            if (!searchET.getText().toString().isEmpty()){
-                for (Computers x : ItemsList) {
-                    String temp = x.getName().toLowerCase();
-                    String search = searchET.getText().toString().toLowerCase();
-                    if (temp.contains(search)) {
-                        templist.add(x);
-                    }
-
-              }
-                SearchList = templist;
-                number=4;
-
-        }else{
-                Intent tempintent = getIntent();
-                number  = tempintent.getIntExtra("number", 0);
+        if (!searchET.getText().toString().isEmpty()) {
+            for (Computers x : ItemsList) {
+                String temp = x.getName().toLowerCase();
+                String search = searchET.getText().toString().toLowerCase();
+                if (temp.contains(search)) {
+                    templist.add(x);
+                }
 
             }
+            SearchList = templist;
+            number = 4;
+
+        } else {
+            Intent tempintent = getIntent();
+            number = tempintent.getIntExtra("number", 0);
+
+        }
 
         UpdateDisplay();
         return false;
