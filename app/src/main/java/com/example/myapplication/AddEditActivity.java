@@ -249,7 +249,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
                 ArrayList<Computers> tempList = new ArrayList<>();
                 Log.d("TEST", "onClick: " + item.toString());
                 for (Computers x : MainActivity.ItemsList) {
-                    if (item.equals(x) && Integer.parseInt(priceET.getText().toString()) <= Integer.parseInt(x.getPrice()) && Integer.parseInt(priceET.getText().toString()) <= Integer.parseInt(x.getPrice())){
+                    if (item.equals(x) && (maxPrice.getText().toString().isEmpty() || (Integer.parseInt(maxPrice.getText().toString()) >= Integer.parseInt(x.getPrice()))) && (minPrice.getText().toString().isEmpty() || (Integer.parseInt(maxPrice.getText().toString()) >= Integer.parseInt(x.getPrice())))){
                         tempList.add(x);
                     }
                     Log.d("TEST", "onClick: " + x.toString());
