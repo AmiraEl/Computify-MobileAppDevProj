@@ -52,7 +52,7 @@
                     android:layout_weight="1"
                     android:drawableLeft="@drawable/icons8_search__1_"
                     android:ems="11"
-                    android:hint="  Search"
+                    android:hint="  Search PC name"
                     android:inputType="textPersonName" />
 
                 <ImageButton

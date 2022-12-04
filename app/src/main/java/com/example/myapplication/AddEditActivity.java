@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,17 +67,21 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private EditText psuET;
     private EditText hddET;
     private EditText ssdET;
+    private EditText minPrice;
+    private EditText maxPrice;
     private Button addButton;
     private Button cancelButton;
+    private TableRow searchRow;
+    private TableRow priceRow;
     //    private Button saveButton;
-//    private ImageButton uploadButton;
+    //    private ImageButton uploadButton;
     private FirebaseFirestore db;
     private int pcID;
     private int num = 0;
     private int pos = 0;
     Computers items = new Computers();
 
-    //
+    //uploading images code
 //    // Uri indicates, where the image will be picked from
 //    private Uri filePath;
 //
@@ -101,17 +106,26 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         psuET = findViewById(R.id.editTextPower);
         hddET = findViewById(R.id.editTextHdd);
         ssdET = findViewById(R.id.editTextSSD);
+        minPrice = findViewById(R.id.editTextPriceMin);
+        maxPrice = findViewById(R.id.editTextPriceMax);
         addButton = findViewById(R.id.buttonSAVE);
+        searchRow = findViewById(R.id.searchRow);
+        priceRow = findViewById(R.id.priceRow);
+
+        //listeners
+        addButton.setOnClickListener(this);
         cancelButton = findViewById(R.id.buttonCANCEL);
+        cancelButton.setOnClickListener(this);
 //        saveButton = findViewById(R.id.buttonSelect);
 //        uploadButton = findViewById(R.id.imageButtonUpload);
-        addButton.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
-        db = MainActivity.db;
 
+
+        db = MainActivity.db;
         Intent intent = getIntent();
         num = intent.getIntExtra("number", 0);
         pos = intent.getIntExtra("position", 0);
+        searchRow.setVisibility(View.GONE);
+        priceRow.setVisibility(View.VISIBLE);
 
         if (num == 1) {
             items = MainActivity.ItemsList.get(pos);
@@ -141,6 +155,8 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         } else if (num == 4) {
             titleTV.setText("SEARCH");
             addButton.setText("SEARCH");
+            searchRow.setVisibility(View.VISIBLE);
+            priceRow.setVisibility(View.GONE);
         }
 
 //    SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.UK);
