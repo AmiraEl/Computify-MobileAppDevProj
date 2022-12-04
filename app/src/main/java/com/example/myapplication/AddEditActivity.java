@@ -81,16 +81,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
     private int pos = 0;
     Computers items = new Computers();
 
-    //uploading images code
-//    // Uri indicates, where the image will be picked from
-//    private Uri filePath;
-//
-//    // request code
-//    private final int PICK_IMAGE_REQUEST = 22;
-//
-//    // instance for firebase storage and StorageReference
-//    FirebaseStorage storage;
-//    StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,9 +106,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
         addButton.setOnClickListener(this);
         cancelButton = findViewById(R.id.buttonCANCEL);
         cancelButton.setOnClickListener(this);
-//        saveButton = findViewById(R.id.buttonSelect);
-//        uploadButton = findViewById(R.id.imageButtonUpload);
-
 
         db = MainActivity.db;
         Intent intent = getIntent();
@@ -158,27 +145,6 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
             searchRow.setVisibility(View.VISIBLE);
             priceRow.setVisibility(View.GONE);
         }
-
-//    SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.UK);
-//        Date now = new Date();
-//        String filename = formatter.format(now);
-//
-//        storage = FirebaseStorage.getInstance();
-//        storageReference = storage.getReference("images/"+filename);
-//
-//        saveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SelectImage();
-//            }
-//        });
-//
-//        uploadButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                UploadImage();
-//            }
-//        });
     }
 
 
@@ -353,122 +319,7 @@ public class AddEditActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(HomeIntent);
 
         }
-
-
         return super.onOptionsItemSelected(item);
     }
-
-//    private void SelectImage() {
-//
-//        // Defining Implicit Intent to mobile gallery
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(
-//                Intent.createChooser(
-//                        intent,
-//                        "Select Image from here..."),
-//                PICK_IMAGE_REQUEST);
-//    }
-//
-//    protected void onActivityResult(int requestCode,
-//                                    int resultCode,
-//                                    Intent data) {
-//        super.onActivityResult(requestCode,
-//                resultCode,
-//                data);
-//        // checking request code and result code
-//        // if request code is PICK_IMAGE_REQUEST and
-//        // resultCode is RESULT_OK
-//        // then set image in the image view
-//        if (requestCode == PICK_IMAGE_REQUEST
-//                && resultCode == RESULT_OK
-//                && data != null
-//                && data.getData() != null) {
-//
-//            // Get the Uri of data
-//            filePath = data.getData();
-//            try {
-//
-//                // Setting image on image view using Bitmap
-//                Bitmap bitmap = MediaStore
-//                        .Images
-//                        .Media
-//                        .getBitmap(
-//                                getContentResolver(),
-//                                filePath);
-//
-//            } catch (IOException e) {
-//                // Log the exception
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    // UploadImage method
-//    private void UploadImage() {
-//        Log.d("TAG", "UploadImage: " + filePath.getLastPathSegment());
-//        if (filePath != null) {
-//
-//            // Code for showing progressDialog while uploading
-//            ProgressDialog progressDialog
-//                    = new ProgressDialog(this);
-//            progressDialog.setTitle("Uploading...");
-//            progressDialog.show();
-//
-//            // Defining the child of storageReference
-//            StorageReference ref = storageReference.child("images/" + filePath.getLastPathSegment());
-//            Log.d("TAG", "UploadImage: " + filePath.getLastPathSegment());
-//            // adding listeners on upload
-//            // or failure of image
-//            ref.putFile(filePath)
-//                    .addOnSuccessListener(
-//                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                                @Override
-//                                public void onSuccess(
-//                                        UploadTask.TaskSnapshot taskSnapshot) {
-//                                    // Image uploaded successfully
-//                                    // Dismiss dialog
-//                                    progressDialog.dismiss();
-//                                    Toast
-//                                            .makeText(getApplicationContext(),
-//                                                    "Image Uploaded!!",
-//                                                    Toast.LENGTH_SHORT)
-//                                            .show();
-//                                }
-//                            })
-//
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//
-//                            // Error, Image not uploaded
-//                            progressDialog.dismiss();
-//                            Toast
-//                                    .makeText(getApplicationContext(),
-//                                            "Failed " + filePath,
-//                                            Toast.LENGTH_SHORT)
-//                                    .show();
-//
-//                        }
-//                    })
-//                    .addOnProgressListener(
-//                            new OnProgressListener<UploadTask.TaskSnapshot>() {
-//                                // Progress Listener for loading
-//                                // percentage on the dialog box
-//                                @Override
-//                                public void onProgress(
-//                                        UploadTask.TaskSnapshot taskSnapshot) {
-//                                    double progress
-//                                            = (100.0
-//                                            * taskSnapshot.getBytesTransferred()
-//                                            / taskSnapshot.getTotalByteCount());
-//                                    progressDialog.setMessage(
-//                                            "Uploaded "
-//                                                    + (int) progress + "%");
-//                                }
-//                            });
-//        }
-//    }
 }
 
